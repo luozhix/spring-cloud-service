@@ -1,5 +1,7 @@
 spring: 
-  cloud:
+  application: 
+    name: order
+  cloud: 
     config:
       discovery:
         enabled: true

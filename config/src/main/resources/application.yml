@@ -13,6 +13,8 @@ spring:
           uri: https://gitee.com/luozhix/spring-cloud-config.git
           username: null
           password: null
+          basedir: c:/项目/basedir
+            
 eureka:
   client:
     service-url:
@@ -20,6 +22,9 @@ eureka:
 management: 
   endpoints:
     web:
-      exposure:
-        include: bus-refresh
+      exposure: 
+        include: "*"
+          
+      #exposure: 
+       # include: bus-refresh
        
