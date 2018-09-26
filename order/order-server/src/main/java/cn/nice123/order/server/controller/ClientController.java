@@ -17,6 +17,7 @@ public class ClientController {
 
 	@Autowired
 	private LoadBalancerClient loadBalancerClient;
+	
 
 	//@Autowired
 	//private RestTemplate restTemplate;
@@ -31,6 +32,7 @@ public class ClientController {
 		 */
 
 		// 第二种方式(利用LoadBalancerClient通过应用名获得url,然后再使用)
+		//通过应用的名字拿到地址
 		ServiceInstance serviceInstance = loadBalancerClient.choose("PRODUCT");
 		String url = serviceInstance.getHost() + ":" + serviceInstance.getPort() + "/product/msg";
 		log.info("url={}", url);
@@ -44,5 +46,8 @@ public class ClientController {
 		 * String.class); log.info("response={}",response);
 		 */
 		// return response;
+		//使用feign
+		//return productClient.productMsg();
+		
 	}
 }
