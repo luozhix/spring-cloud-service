@@ -1,7 +1,7 @@
 spring:
   application:
     name: order
-  cloud: 
+  cloud:
     config:
       discovery:
         enabled: true
@@ -9,10 +9,46 @@ spring:
       profile: test
     stream:
       bindings:
-        myMessageInput: 
+        myMessageInput:
           group: order
           content-type: application/json
+  zipkin:
+    base-url: http://localhost:9411/
+  sleuth: 
+    sampler:
+      probability: 1.0
+    enabled: true
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
+      
+      
+#请求处理的超时时间
+ribbon: 
+  ReadTimeout: 120000
+#请求连接的超时时间
+  ConnectTimeout: 30000
+#hystrix:
+#  command: 
+#    default:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 1000
+#    getProductInfoList:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 1000
+#feign: 
+#  hystrix: 
+#    enabled: true
+#management:
+#  server:
+#    servlet:
+#      context-path: /
+#日志级别改成debug模式
+#logging:
+# level:
+#    org.springframework.cloud.openfeign: DEBUG

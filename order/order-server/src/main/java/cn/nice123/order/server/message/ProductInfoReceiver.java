@@ -1,6 +1,5 @@
 package cn.nice123.order.server.message;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.amqp.rabbit.annotation.Queue;
@@ -24,13 +23,18 @@ public class ProductInfoReceiver {
 	@Autowired
 	private StringRedisTemplate stringRedisTemplate;
 
+	/**
+	 * 接收减库存的mq消息
+	 * @param message
+	 */
 	@RabbitListener(queuesToDeclare = @Queue("productInfo"))
 	public void process(String message) {
+		//通过jsonutil将json转为对象
 		List<ProductInfoOutput> productInfoOutputList = (List<ProductInfoOutput>) JsonUtil.fromJson(message,
 				new TypeReference<List<ProductInfoOutput>>() {
 				});
 		log.info("从队列【{}】接收到消息：{}", "productInfo", productInfoOutputList);
-
+		//将库存消息存到redis中
 		for (ProductInfoOutput productInfoOutput : productInfoOutputList) {
 			stringRedisTemplate.opsForValue().set(String.format(PRODUCT_STOCK_TEMPLATE, productInfoOutput.getProductId()), String.valueOf(productInfoOutput.getProductStock()));
 		}

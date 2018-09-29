@@ -25,6 +25,12 @@ public class JsonUtil {
 		return null;
 	}
 
+	/**
+	 * json转换为对象
+	 * @param string
+	 * @param classType
+	 * @return
+	 */
 	public static Object fromJson(String string, Class classType) {
 		try {
 			return objectMapper.readValue(string, classType);
@@ -34,7 +40,12 @@ public class JsonUtil {
 		}
 		return null;
 	}
-	
+	/**
+	 * json转换为对面，用于转化为集合对象，带泛型的
+	 * @param string
+	 * @param typeReference
+	 * @return
+	 */
 	public static Object fromJson(String string, TypeReference typeReference) {
 		try {
 			return objectMapper.readValue(string, typeReference);
